@@ -1,0 +1,11 @@
+name: string @index(exact, fulltext) @count .
+multiname: string @lang .
+age: int @index(int) .
+friend: [uid] @count .
+dob: dateTime .
+location: geo @index(geo) .
+occupations: [string] @index(term) .
+type Virus {
+    kind
+    class: string
+}
