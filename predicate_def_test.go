@@ -55,7 +55,7 @@ func TestEnclosedPredicate(t *testing.T) {
 }
 
 func TestUIDPredicate(t *testing.T) {
-	s := `friends: [uid] .`
+	s := `boy_friends: [uid] .`
 	p := newParserOn(s)
 	sa, err := p.Parse()
 	if err != nil {
@@ -66,6 +66,19 @@ func TestUIDPredicate(t *testing.T) {
 		t.Errorf("got [%v] want [%v]", got, want)
 	}
 	if got, want := r.IsArray, true; got != want {
+		t.Errorf("got [%v] want [%v]", got, want)
+	}
+}
+
+func TestIRIPredicate(t *testing.T) {
+	s := `<地点>: geo @index(geo) .`
+	p := newParserOn(s)
+	sa, err := p.Parse()
+	if err != nil {
+		t.Fatal(err)
+	}
+	r := sa.Predicates[0]
+	if got, want := r.Typename, "geo"; got != want {
 		t.Errorf("got [%v] want [%v]", got, want)
 	}
 }
