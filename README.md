@@ -23,3 +23,5 @@ Package in Go for parsing native DGraph schema definitions (so not GraphQL).
 	if err != nil {
 		log.Fatal(err)
 	}
+
+© 2020, [ernestmicklei.com](http://ernestmicklei.com).  MIT License. Contributions welcome.
