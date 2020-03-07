@@ -15,6 +15,12 @@ func TestExampleSchema(t *testing.T) {
 	if err != nil {
 		t.Fatal(err)
 	}
+	if got, want := sa.FindPredicate("location") != nil, true; got != want {
+		t.Errorf("got [%v] want [%v]", got, want)
+	}
+	if got, want := sa.FindPredicate("class") != nil, true; got != want {
+		t.Errorf("got [%v] want [%v]", got, want)
+	}
 	t.Log(sa.String())
 }
 

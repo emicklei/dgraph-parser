@@ -64,3 +64,21 @@ func (s *Schema) String() string {
 	}
 	return b.String()
 }
+
+// FindPredicate searches in all predicates and types for a definition. Return nil if not found.
+func (s *Schema) FindPredicate(name string) *PredicateDef {
+	// first all predicates outside types
+	for _, each := range s.Predicates {
+		if each.Name == name {
+			return each
+		}
+	}
+	for _, each := range s.Types {
+		for _, other := range each.Predicates {
+			if other.Name == name {
+				return other
+			}
+		}
+	}
+	return nil
+}
