@@ -2,7 +2,7 @@
 
 [![Build Status](https://travis-ci.org/emicklei/dgraph-parser.png)](https://travis-ci.org/emicklei/dgraph-parser)
 [![Go Report Card](https://goreportcard.com/badge/github.com/emicklei/dgraph-parser)](https://goreportcard.com/report/github.com/emicklei/dgraph-parser)
-[![GoDev](https://pkg.go.dev/github.com/emicklei/dgraph-parser?status.svg)](https://pkg.go.dev/github.com/emicklei/dgraph-parser?tab=doc)
+[![go.dev reference](https://img.shields.io/badge/go.dev-reference-007d9c?logo=go&logoColor=white&style=flat-square)](https://pkg.go.dev/github.com/emicklei/dgraph-parser?tab=doc)
 
 Package in Go for parsing native DGraph schema definitions (so not GraphQL).
 
