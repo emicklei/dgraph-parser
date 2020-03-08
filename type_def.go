@@ -39,6 +39,9 @@ func (td *TypeDef) parse(p *Parser) error {
 					return err
 				}
 			}
+			if err := pd.Validate(); err != nil {
+				return fmt.Errorf("%v: %s", pos, err.Error())
+			}
 			td.Predicates = append(td.Predicates, pd)
 			continue
 		}

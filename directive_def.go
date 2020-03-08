@@ -2,9 +2,27 @@ package dsp
 
 import "fmt"
 
+var ValidDirectives = []string{
+	"reverse",
+	"index",
+	"count",
+	"upsert",
+	"noconflict",
+	"lang",
+}
+
 type DirectiveDef struct {
 	Name      string
 	Arguments []string
+}
+
+func (dd *DirectiveDef) Validate() error {
+	for _, each := range ValidDirectives {
+		if each == dd.Name {
+			return nil
+		}
+	}
+	return fmt.Errorf("unknown directive name [%s], must be one of %v", dd.Name, ValidDirectives)
 }
 
 func (dd *DirectiveDef) parse(p *Parser) error {

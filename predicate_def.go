@@ -3,7 +3,22 @@ package dsp
 import (
 	"fmt"
 	"io"
+	"strings"
 )
+
+// https://github.com/dgraph-io/dgraph/blob/master/types/scalar_types.go
+var ValidTypenames = []string{
+	"default",
+	"binary",
+	"int",
+	"float",
+	"bool",
+	"datetime",
+	"geo",
+	"uid",
+	"string",
+	"password",
+}
 
 type PredicateDef struct {
 	Name          string
@@ -11,6 +26,19 @@ type PredicateDef struct {
 	IsArray       bool
 	definedInType bool
 	Directives    []*DirectiveDef
+}
+
+func (pd *PredicateDef) Validate() error {
+	if len(pd.Typename) == 0 && pd.definedInType {
+		return nil
+	}
+	lower := strings.ToLower(pd.Typename)
+	for _, each := range ValidTypenames {
+		if each == lower {
+			return nil
+		}
+	}
+	return fmt.Errorf("unknown type identifier [%s] for predicate [%s], must be one of %v", pd.Typename, pd.Name, ValidTypenames)
 }
 
 func (pd *PredicateDef) WriteOn(w io.Writer) {
@@ -50,12 +78,18 @@ func (pd *PredicateDef) parse(p *Parser) error {
 		}
 		pd.Typename = lit
 	}
+	if err := pd.Validate(); err != nil {
+		return fmt.Errorf("%v: %s", pos, err.Error())
+	}
 	for {
 		pos, tok, lit = p.next()
 		if tAT == tok {
 			dd := new(DirectiveDef)
 			if err := dd.parse(p); err != nil {
 				return err
+			}
+			if err := dd.Validate(); err != nil {
+				return fmt.Errorf("%v: %s", pos, err.Error())
 			}
 			pd.Directives = append(pd.Directives, dd)
 			continue
