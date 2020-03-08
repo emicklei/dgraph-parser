@@ -30,6 +30,9 @@ func (td *TypeDef) parse(p *Parser) error {
 	}
 	for {
 		pos, tok, lit = p.next()
+		if tHASH == tok {
+			p.upToLineEnd()
+		}
 		if tIDENT == tok {
 			pd := new(PredicateDef)
 			pd.definedInType = true

@@ -82,3 +82,20 @@ func TestIRIPredicate(t *testing.T) {
 		t.Errorf("got [%v] want [%v]", got, want)
 	}
 }
+
+func TestPredicateWithComment(t *testing.T) {
+	s := `# this is comment
+	sample: string . # this is comment`
+	p := newParserOn(s)
+	sa, err := p.Parse()
+	if err != nil {
+		t.Fatal(err)
+	}
+	if got, want := len(sa.Predicates), 1; got != want {
+		t.Errorf("got [%v] want [%v]", got, want)
+	}
+	r := sa.Predicates[0]
+	if got, want := r.Typename, "string"; got != want {
+		t.Errorf("got [%v] want [%v]", got, want)
+	}
+}

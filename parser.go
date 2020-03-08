@@ -255,10 +255,10 @@ func (p *Parser) upToLineEnd() string {
 	for {
 		r := p.scanner.Peek()
 		if r == scanner.EOF {
-			return "eof"
+			return b.String()
 		}
 		if r == '\n' {
-			return "?"
+			return b.String()
 		}
 		b.WriteRune(p.scanner.Next())
 	}
