@@ -1,4 +1,5 @@
-name: string @index(exact, fulltext) @count .
+# comment
+name: string @index(exact, fulltext) @count . #comment
 multiname: string @lang .
 age: int @index(int) .
 friend: [uid] @count .

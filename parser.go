@@ -249,3 +249,17 @@ func (p *Parser) peekNonWhitespace() rune {
 	}
 	return r
 }
+
+func (p *Parser) upToLineEnd() string {
+	var b bytes.Buffer
+	for {
+		r := p.scanner.Peek()
+		if r == scanner.EOF {
+			return "eof"
+		}
+		if r == '\n' {
+			return "?"
+		}
+		b.WriteRune(p.scanner.Next())
+	}
+}

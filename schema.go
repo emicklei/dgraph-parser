@@ -16,6 +16,8 @@ func (s *Schema) parse(p *Parser) error {
 	for {
 		pos, tok, lit := p.next()
 		switch {
+		case tHASH == tok:
+			p.upToLineEnd()
 		case tLESS == tok:
 			pd := new(PredicateDef)
 			_, tok, lit = p.next()

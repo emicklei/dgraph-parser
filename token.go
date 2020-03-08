@@ -57,6 +57,7 @@ const (
 	tCOMMA       // ,
 	tDOT         // .
 	tAT          // @
+	tHASH        // #
 
 	// Keywords
 	keywordsStart
@@ -154,6 +155,8 @@ func asToken(literal string) token {
 		return tDOT
 	case "@":
 		return tAT
+	case "#":
+		return tHASH
 	// words
 	case "type":
 		return tTYPE
